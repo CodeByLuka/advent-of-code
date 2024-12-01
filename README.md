@@ -4,18 +4,11 @@ Welcome to my **Advent of Code** repository! Feel free to explore my solutions f
 
 ---
 
-## Repository Structure
-
-.
-└── year/
-    └── day_X/
-        ├── input.txt
-        ├── main.go
-        └── output.txt
 
 Each day's folder contains:
 - `main.go` - My solution for that day.
 - `input.txt` - The puzzle input for that day.
+- `output.txt` - The puzzle output for that day.
 
 ---
 
