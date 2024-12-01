@@ -1,32 +1,21 @@
 # Advent of Code 2024 🎄
 
-Welcome to my **Advent of Code** repository! Here, I'll be solving daily coding challenges from [Advent of Code](https://adventofcode.com/) 2024 in **Go**.
+Welcome to my **Advent of Code** repository! Feel free to explore my solutions for [Advent of Code](https://adventofcode.com/), all implemented in **Go**.
 
 ---
 
 ## Repository Structure
 
-📂 aoc/
-├── 📂 year/
-│ └──📂 dayX/
-├── main.go # Solution for Day X
-│ └── input.txt
-│ └── output.txt
-└── README.md # This file
-
+.
+└── year/
+    └── day_X/
+        ├── input.txt
+        ├── main.go
+        └── output.txt
 
 Each day's folder contains:
 - `main.go` - My solution for that day.
 - `input.txt` - The puzzle input for that day.
-
----
-
-## Completed Challenges
-
-| Day | Status       |
-|-----|--------------|
-| 01  | ✅ Completed |
-| 02  | 🔄 In Progress |
 
 ---
 
