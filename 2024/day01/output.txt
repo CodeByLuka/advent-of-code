@@ -1,0 +1,2 @@
+Total difference: 1889772
+Total similarity: 23228917
