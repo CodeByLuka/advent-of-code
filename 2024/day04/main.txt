@@ -1,0 +1,173 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"strings"
+
+	"github.com/lukafilipdev/aoc/utils"
+)
+
+func main() {
+	content, err := utils.ReadFile("input.txt")
+	if err != nil {
+		fmt.Println("Error reading file:", err)
+		os.Exit(1)
+	}
+
+	lines := strings.Split(strings.TrimSpace(string(content)), "\n")
+	count := 0
+
+	for i, line := range lines {
+		for j := 0; j < len(line); j++ {
+
+			if j + 3 < len(line) {
+				count += checkHorizontal(line, j)
+			}
+
+			if i + 3 < len(lines) {
+				count += checkVertical(lines, i, j)
+			}
+
+			if j - 3 >= 0 {
+				count += checkHorizontalBackwards(line, j)
+			}
+
+			if i - 3 >= 0 {
+				count += checkVerticalBackwards(lines, i, j)
+			}
+
+			// Diagonals
+
+			if i + 3 < len(lines) && j + 3 < len(line) {
+				count += checkRightDiagonal(lines, i, j)
+			}
+
+			if i + 3 < len(lines) && j - 3 >= 0 {
+				count += checkLeftDiagonal(lines, i, j)
+			}
+
+			if i - 3 >= 0 && j - 3 >= 0 {
+				count += checkRightDiagonalBackwards(lines, i, j)
+			}
+
+			if i - 3 >= 0 && j + 3 < len(line) {
+				count += checkLeftDiagonalBackwards(lines, i, j)
+			}
+		}
+	}
+
+	crossCount := 0
+
+	for i := 1; i < len(lines) - 1; i++ {
+		for j := 1; j < len(lines[i]) - 1; j++ {
+			if lines[i][j] == 'A' {
+				crossCount += checkCross(lines, i, j)
+			}
+		}
+	}
+
+	fmt.Println(count)
+	fmt.Println(crossCount)
+}
+
+func checkHorizontal(line string, j int) int {
+
+	if (line[j] == 'X' && line[j+1] == 'M' && line[j+2] == 'A' && line[j+3] == 'S') {
+		return 1
+	}
+
+	return 0
+}
+
+func checkVertical(lines []string, i int, j int) int {
+
+	if (lines[i][j] == 'X' && lines[i+1][j] == 'M' && lines[i+2][j] == 'A' && lines[i+3][j] == 'S') {
+		return 1
+	}
+
+	return 0
+}
+
+func checkHorizontalBackwards(line string, j int) int {
+
+	if (line[j] == 'X' && line[j - 1] == 'M' && line[j - 2] == 'A' && line[j - 3] == 'S') {
+		return 1
+	}
+
+	return 0
+}
+
+func checkVerticalBackwards(lines []string, i int, j int) int {
+
+	if (lines[i][j] == 'X' && lines[i-1][j] == 'M' && lines[i-2][j] == 'A' && lines[i-3][j] == 'S') {
+		return 1
+	}
+
+	return 0
+}
+
+func checkRightDiagonal(lines []string, i int, j int) int {
+	if (lines[i][j] == 'X' && lines[i+1][j+1] == 'M' && lines[i+2][j+2] == 'A' && lines[i+3][j+3] == 'S') {
+		return 1
+	}
+
+	return 0
+}
+
+func checkLeftDiagonal(lines []string, i int, j int) int {
+	if (lines[i][j] == 'X' && lines[i+1][j-1] == 'M' && lines[i+2][j-2] == 'A' && lines[i+3][j-3] == 'S') {
+		return 1
+	}
+
+	return 0
+}
+
+func checkRightDiagonalBackwards(lines []string, i int, j int) int {
+	if (lines[i][j] == 'X' && lines[i-1][j-1] == 'M' && lines[i-2][j-2] == 'A' && lines[i-3][j-3] == 'S') {
+		return 1
+	}
+
+	return 0
+}
+
+func checkLeftDiagonalBackwards(lines []string, i int, j int) int {
+	if (lines[i][j] == 'X' && lines[i-1][j+1] == 'M' && lines[i-2][j+2] == 'A' && lines[i-3][j+3] == 'S') {
+		return 1
+	}
+
+	return 0
+}
+
+func checkCross(lines []string, i int, j int) int {
+	if checkLeftDiag(lines, i, j) && checkRightDiag(lines, i, j) {
+		return 1
+	}
+
+	return 0
+}
+
+func checkLeftDiag(lines []string, i int, j int) bool {
+	if lines[i-1][j-1] == 'M' && lines[i+1][j+1] == 'S' {
+		return true
+	}
+
+	if lines[i-1][j-1] == 'S' && lines[i+1][j+1] == 'M' {
+		return true
+	}
+
+	return false
+}
+
+func checkRightDiag(lines []string, i int, j int) bool {
+	if lines[i-1][j+1] == 'M' && lines[i+1][j-1] == 'S' {
+		return true
+	}
+
+	if lines[i-1][j+1] == 'S' && lines[i+1][j-1] == 'M' {
+		return true
+	}
+
+	return false
+}
+
